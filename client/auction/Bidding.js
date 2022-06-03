@@ -92,7 +92,7 @@ export default function Bidding (props) {
                     {props.auction.bids.map((item, index) => {
                         return <Grid container spacing={4} key={index}>
                             <Grid item xs={3} sm={3}><Typography variant="body2">${item.bid}</Typography></Grid>
-                            <Grid item xs={5} sm={5}><Typography variant="body2">{new Date(item.time).toLocaleString()}</Typography></Grid>
+                            <Grid item xs={5} sm={5}><Typography variant="body2">{new Date(item.time).toLocaleString('id-ID')}</Typography></Grid>
                             <Grid item xs={4} sm={4}><Typography variant="body2">{item.bidder.name}</Typography></Grid>
                         </Grid>
                     })}

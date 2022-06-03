@@ -129,7 +129,7 @@ export default function Auction ({match}) {
                                 {` Tawaran Tertinggi: Rp. ${auction.bids[0].bid}`}
                             </Typography>
                         }
-                        { !auth.isAuthenticated() && <Typography>Please, <Link to='/signin'>sign in</Link> to place your bid.</Typography> }
+                        { !auth.isAuthenticated() && <Typography>Silahkan <Link to='/signin'>login</Link> untuk membuat penawaran.</Typography> }
                         { auth.isAuthenticated() && <Bidding auction={auction} justEnded={justEnded} updateBids={updateBids}/> }
                       </>)
                     : <Typography component="p" variant="h6">{`Lelang dimulai pada ${new Date(auction.bidStart).toLocaleTimeString('id-ID')}`}</Typography>}

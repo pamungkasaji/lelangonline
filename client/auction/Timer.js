@@ -50,10 +50,11 @@ export default function Timer (props) {
     })
     return (<div className={classes.subheading}>
         {!timeLeft.timeEnd? <Typography component="p" variant="h6" >
-                {timeLeft.days != 0 && `${timeLeft.days} d `} 
-                {timeLeft.hours != 0 && `${timeLeft.hours} h `} 
-                {timeLeft.minutes != 0 && `${timeLeft.minutes} m `} 
-                {timeLeft.seconds != 0 && `${timeLeft.seconds} s`} left <span className={classes.endTime}>{`(berakhir pada ${new Date(props.endTime).toLocaleString()})`}</span></Typography> : 
+                Tersisa 
+                {timeLeft.days != 0 && ` ${timeLeft.days} hari `} 
+                {timeLeft.hours != 0 && `${timeLeft.hours} jam `} 
+                {timeLeft.minutes != 0 && `${timeLeft.minutes} menit `} 
+                {timeLeft.seconds != 0 && `${timeLeft.seconds} detik`} <span className={classes.endTime}>{`(berakhir pada ${new Date(props.endTime).toLocaleString('id-ID')})`}</span></Typography> : 
             <Typography component="p" variant="h6" >Auction ended</Typography>}
         </div>
     )
