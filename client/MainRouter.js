@@ -25,6 +25,7 @@ import OpenAuctions from './auction/OpenAuctions'
 import NewAuction from './auction/NewAuction'
 import EditAuction from './auction/EditAuction'
 import Auction from './auction/Auction'
+import SignupSeller from './user/SignupSeller'
 
 const MainRouter = () => {
   return (<div>
@@ -33,6 +34,7 @@ const MainRouter = () => {
         <Route exact path="/" component={Home}/>
         <Route path="/users" component={Users}/>
         <Route path="/signup" component={Signup}/>
+        <Route path="/signupseller" component={SignupSeller}/>
         <Route path="/signin" component={Signin}/>
         <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
         <Route path="/user/:userId" component={Profile}/>

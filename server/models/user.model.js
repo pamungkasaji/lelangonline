@@ -4,17 +4,17 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: 'Name is required'
+    required: 'Name harus diisi'
   },
   username: {
     type: String,
     trim: true,
-    unique: 'Username already exists',
-    required: 'Username is required'
+    unique: 'Username sudah digunakan',
+    required: 'Username harus diisi'
   },
   hashed_password: {
     type: String,
-    required: "Password is required"
+    required: "Password harus diisi"
   },
   salt: String,
   updated: Date,
@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
   seller: {
     type: Boolean,
     default: false
+  },
+  address: {
+    type: String,
+    trim: true
   },
   stripe_seller: {},
   stripe_customer: {}
@@ -43,10 +47,10 @@ UserSchema
 
 UserSchema.path('hashed_password').validate(function(v) {
   if (this._password && this._password.length < 6) {
-    this.invalidate('password', 'Password must be at least 6 characters.')
+    this.invalidate('password', 'Password minimal harus 6 karakter.')
   }
   if (this.isNew && !this._password) {
-    this.invalidate('password', 'Password is required')
+    this.invalidate('password', 'Password harus diisi')
   }
 }, null)
 

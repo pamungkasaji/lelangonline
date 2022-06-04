@@ -53,7 +53,7 @@ export default function OpenAuctions(){
     <div>
       <Paper className={classes.root} elevation={4}>
         <Typography type="title" className={classes.title}>
-          All Auctions
+          Daftar Lelang
         </Typography>
         <Auctions auctions={auctions} removeAuction={removeAuction}/>
       </Paper>
