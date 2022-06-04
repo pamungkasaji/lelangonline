@@ -150,10 +150,10 @@ export default function EditShop ({match}) {
                   <FileUpload/>
                 </Button>
               </label> <span className={classes.filename}>{auction.image ? auction.image.name : ''}</span><br/>
-              <TextField id="name" label="Name" className={classes.textField} value={auction.itemName} onChange={handleChange('itemName')} margin="normal"/><br/>
+              <TextField id="name" label="Nama Produk" className={classes.textField} value={auction.itemName} onChange={handleChange('itemName')} margin="normal"/><br/>
               <TextField
                 id="multiline-flexible"
-                label="Description"
+                label="Deskripsi"
                 multiline
                 rows="3"
                 value={auction.description}
@@ -161,11 +161,11 @@ export default function EditShop ({match}) {
                 className={classes.textField}
                 margin="normal"
               /><br/>
-              <TextField id="startingBid" label="Starting Bid ($)" className={classes.textField} value={auction.startingBid} onChange={handleChange('startingBid')} margin="normal"/><br/>
+              <TextField id="startingBid" label="Harga Awal (Rp.)" className={classes.textField} value={auction.startingBid} onChange={handleChange('startingBid')} margin="normal"/><br/>
               <br/>
               <TextField
                 id="datetime-local"
-                label="Auction Start Time"
+                label="Waktu Lelang Dimulai"
                 type="datetime-local"
                 value={auction.bidStart}
                 className={classes.textField}
@@ -177,7 +177,7 @@ export default function EditShop ({match}) {
               <br/>
               <TextField
                 id="datetime-local"
-                label="Auction End Time"
+                label="Waktu Lelang Selesai"
                 type="datetime-local"
                 value={auction.bidEnd}
                 className={classes.textField}
@@ -194,7 +194,8 @@ export default function EditShop ({match}) {
               }
             </CardContent>
             <CardActions>
-              <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Update</Button>
+              <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Simpan</Button>
+              <Link to='/myauctions' className={classes.submit}><Button variant="contained">Batal</Button></Link>
             </CardActions>
           </Card>
     </div>)

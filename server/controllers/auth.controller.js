@@ -6,7 +6,7 @@ import config from './../../config/config'
 const signin = async (req, res) => {
   try {
     let user = await User.findOne({
-        "email": req.body.email
+        "username": req.body.username
       })
 
       if (!user)
@@ -16,7 +16,7 @@ const signin = async (req, res) => {
 
       if (!user.authenticate(req.body.password)) {
         return res.status('401').send({
-          error: "Email and password don't match."
+          error: "Username and password don't match."
         })
       }
 
@@ -30,7 +30,7 @@ const signin = async (req, res) => {
 
       return res.json({
         token,
-        user: {_id: user._id, name: user.name, email: user.email, seller: user.seller}
+        user: {_id: user._id, name: user.name, username: user.username, seller: user.seller}
       })
   } catch (err) {
     return res.status('401').json({

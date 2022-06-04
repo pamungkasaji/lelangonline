@@ -3,7 +3,7 @@ const AuctionSchema = new mongoose.Schema({
   itemName: {
     type: String,
     trim: true,
-    required: 'Item name is required'
+    required: 'Nama produk harus diisi'
   },
   description: {
     type: String,
@@ -24,7 +24,7 @@ const AuctionSchema = new mongoose.Schema({
   },
   bidEnd: {
     type: Date,
-    required: "Auction end time is required"
+    required: "Waktu lelang berakhir harus diisi"
   },
   seller: {
     type: mongoose.Schema.ObjectId, 

@@ -46,7 +46,7 @@ export default function Signup() {
   const [values, setValues] = useState({
     name: '',
     password: '',
-    email: '',
+    username: '',
     open: false,
     error: ''
   })
@@ -58,7 +58,7 @@ export default function Signup() {
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
-      email: values.email || undefined,
+      username: values.username || undefined,
       password: values.password || undefined
     }
     create(user).then((data) => {
@@ -76,7 +76,7 @@ export default function Signup() {
             Registrasi
           </Typography>
           <TextField id="name" label="Nama" className={classes.textField} value={values.name} onChange={handleChange('name')} margin="normal"/><br/>
-          <TextField id="email" type="Username" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/><br/>
+          <TextField id="username" type="Username" label="Username" className={classes.textField} value={values.username} onChange={handleChange('username')} margin="normal"/><br/>
           <TextField id="password" type="Password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           <br/> {
             values.error && (<Typography component="p" color="error">
@@ -85,11 +85,11 @@ export default function Signup() {
           }
         </CardContent>
         <CardActions>
-          <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Kirim</Button>
+          <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Daftar</Button>
         </CardActions>
       </Card>
       <Dialog open={values.open} disableBackdropClick={true}>
-        <DialogTitle>New Account</DialogTitle>
+        <DialogTitle>Akun Baru</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Akun baru berhasil dibuat

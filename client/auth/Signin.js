@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 export default function Signin(props) {
   const classes = useStyles()
   const [values, setValues] = useState({
-    email: '',
+    username: '',
     password: '',
     error: '',
     redirectToReferrer: false
@@ -48,7 +48,7 @@ export default function Signin(props) {
 
   const clickSubmit = () => {
     const user = {
-      email: values.email || undefined,
+      username: values.username || undefined,
       password: values.password || undefined
     }
 
@@ -83,7 +83,7 @@ export default function Signin(props) {
           <Typography variant="h5" className={classes.title}>
             Login
           </Typography>
-          <TextField id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/><br/>
+          <TextField id="username" type="username" label="Username" className={classes.textField} value={values.username} onChange={handleChange('username')} margin="normal"/><br/>
           <TextField id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           <br/> {
             values.error && (<Typography component="p" color="error">
