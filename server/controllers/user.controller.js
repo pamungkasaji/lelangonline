@@ -1,5 +1,7 @@
 import User from '../models/user.model'
 import extend from 'lodash/extend'
+import formidable from 'formidable'
+import fs from 'fs'
 import errorHandler from './../helpers/dbErrorHandler'
 import request from 'request'
 import config from './../../config/config'
@@ -19,6 +21,33 @@ const create = async (req, res) => {
       error: errorHandler.getErrorMessage(err)
     })
   }
+}
+
+const createSeller = async (req, res) => {
+  let form = new formidable.IncomingForm()
+  form.keepExtensions = true
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      res.status(400).json({
+        message: "Foto NIK tidak dapat di-upload"
+      })
+    }
+    let user = new User(fields)
+    user.seller= true
+    user.verified= false
+    if(files.image){
+      user.image.data = fs.readFileSync(files.image.path)
+      user.image.contentType = files.image.type
+    }
+    try {
+      let result = await user.save()
+      res.status(200).json(result)
+    }catch (err){
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+    }
+  })
 }
 
 /**
@@ -174,6 +203,7 @@ const createCharge = (req, res, next) => {
 
 export default {
   create,
+  createSeller,
   userByID,
   read,
   list,

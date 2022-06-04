@@ -15,6 +15,21 @@ const create = async (user) => {
   }
 }
 
+const createSeller = async (seller) => {
+  try {
+    let response = await fetch('/api/userseller', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: seller
+      })
+      return response.json()
+    }catch(err) {
+      console.log(err)
+    }
+}
+
 const list = async (signal) => {
   try {
     let response = await fetch('/api/users/', {
@@ -97,6 +112,7 @@ const stripeUpdate = async (params, credentials, auth_code, signal) => {
 
 export {
   create,
+  createSeller,
   list,
   read,
   update,

@@ -31,7 +31,9 @@ const MainRouter = () => {
   return (<div>
       <Menu/>
       <Switch>
-        <Route exact path="/" component={Home}/>
+        {/* <Route exact path="/" component={Home}/> */}
+        <Route exact path="/" component={OpenAuctions}/>
+
         <Route path="/users" component={Users}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/signupseller" component={SignupSeller}/>

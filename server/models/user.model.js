@@ -26,6 +26,19 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  nik: {
+    type: String,
+    trim: true,
+    // required: 'NIK harus diisi'
+  },
+  image: {
+    data: Buffer,
+    contentType: String
+  },
   address: {
     type: String,
     trim: true

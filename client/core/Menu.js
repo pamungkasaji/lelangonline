@@ -10,6 +10,9 @@ import {Link, withRouter} from 'react-router-dom'
 import CartIcon from '@material-ui/icons/ShoppingCart'
 import Badge from '@material-ui/core/Badge'
 import cart from './../cart/cart-helper'
+import MUIMenu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const isActive = (history, path) => {
   if (history.location.pathname == path)
@@ -53,10 +56,24 @@ const Menu = withRouter(({history}) => (
       <div style={{'position':'absolute', 'right': '10px'}}><span style={{'float': 'right'}}>
       {
         !auth.isAuthenticated() && (<span>
-          <Link to="/signup">
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <React.Fragment>
+                <Button variant="contained" {...bindTrigger(popupState)}>
+                  Registrasi
+                </Button>
+                <MUIMenu {...bindMenu(popupState)}>
+                  <MenuItem onClick={() => history.push('/signup')}>Pembeli</MenuItem>
+                  <MenuItem onClick={() => history.push('/signupseller')}>Penjual</MenuItem>
+                  {/* <MenuItem onClick={popupState.close}>Logout</MenuItem> */}
+                </MUIMenu>
+              </React.Fragment>
+            )}
+          </PopupState>
+          {/* <Link to="/signup">
             <Button style={isActive(history, "/signup")}>Registrasi
             </Button>
-          </Link>
+          </Link> */}
           <Link to="/signin">
             <Button style={isActive(history, "/signin")}>Login
             </Button>

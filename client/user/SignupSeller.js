@@ -3,11 +3,12 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
+import FileUpload from '@material-ui/icons/AddPhotoAlternate'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles'
-import {create} from './api-user.js'
+import {createSeller} from './api-user.js'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -38,40 +39,77 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: 'auto',
     marginBottom: theme.spacing(2)
+  },
+  input: {
+    display: 'none'
+  },
+  filename:{
+    marginLeft:'10px'
   }
 }))
+
+const isNumber = (str) => /^\d+$/.test(str);
 
 export default function SignupSeller() {
   const classes = useStyles()
   const [values, setValues] = useState({
     name: '',
+    nik: '',
     address: '',
+    image: '',
     password: '',
     username: '',
-    seller: true,
+    // seller: true,
     open: false,
     error: ''
   })
 
   const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value })
+    console.log()
+    const value = name === 'image'
+      ? event.target.files[0]
+      : event.target.value
+
+    // nik hanya boleh diisi number
+    if (name !== 'nik' || (name === 'nik' && isNumber(value))) {
+      setValues({ ...values, [name]: value })
+    }
   }
 
   const clickSubmit = () => {
-    const user = {
-      name: values.name || undefined,
-      username: values.username || undefined,
-      password: values.password || undefined,
-      seller: true
-    }
-    create(user).then((data) => {
+    let sellerData = new FormData()
+    values.name && sellerData.append('name', values.name)
+    values.nik && sellerData.append('nik', values.nik)
+    values.address && sellerData.append('address', values.address)
+    values.image && sellerData.append('image', values.image)
+    values.password && sellerData.append('password', values.password)
+    values.username && sellerData.append('username', values.username)
+
+    createSeller(sellerData).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error})
+        setValues({...values, error: data.error})
       } else {
-        setValues({ ...values, error: '', open: true})
+        setValues({...values, error: '', open: true})
       }
     })
-  }   
+  }
+
+  // const clickSubmit = () => {
+  //   const user = {
+  //     name: values.name || undefined,
+  //     username: values.username || undefined,
+  //     password: values.password || undefined,
+  //     seller: true
+  //   }
+  //   create(user).then((data) => {
+  //     if (data.error) {
+  //       setValues({ ...values, error: data.error})
+  //     } else {
+  //       setValues({ ...values, error: '', open: true})
+  //     }
+  //   })
+  // }
+
     return (<div>
       <Card className={classes.card}>
         <CardContent>
@@ -89,6 +127,14 @@ export default function SignupSeller() {
             className={classes.textField}
             margin="normal"
           />
+          <TextField id="nik" label="NIK"  className={classes.textField} value={values.nik} onChange={handleChange('nik')} margin="normal"/><br/>
+          <input accept="image/*" onChange={handleChange('image')} className={classes.input} id="icon-button-file" type="file" />
+          <label htmlFor="icon-button-file">
+            <Button variant="contained" color="secondary" component="span">
+              Foto KTP
+              <FileUpload/>
+            </Button>
+          </label> <span className={classes.filename}>{values.image ? values.image.name : ''}</span><br/>
           <TextField id="username" type="Username" label="Username" className={classes.textField} value={values.username} onChange={handleChange('username')} margin="normal"/><br/>
           <TextField id="password" type="Password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           <br/> {

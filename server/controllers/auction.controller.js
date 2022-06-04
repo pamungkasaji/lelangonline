@@ -11,7 +11,7 @@ const create = (req, res) => {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       res.status(400).json({
-        message: "Image could not be uploaded"
+        message: "Foto tidak dapat di-upload"
       })
     }
     let auction = new Auction(fields)
