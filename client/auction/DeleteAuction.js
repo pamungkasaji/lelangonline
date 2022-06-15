@@ -42,15 +42,15 @@ export default function DeleteAuction(props) {
         <DialogTitle>{"Delete "+props.auction.itemName}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Confirm to delete your auction {props.auction.itemName}.
+            Apakah anda ingin menghapus lelang {props.auction.itemName}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleRequestClose} color="primary">
-            Cancel
+            Batal
           </Button>
           <Button onClick={deleteAuction} color="secondary" autoFocus="autoFocus">
-            Confirm
+            Ya
           </Button>
         </DialogActions>
       </Dialog>

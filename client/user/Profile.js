@@ -146,12 +146,14 @@ export default function Profile({ match }) {
           </ListItem>
         </List>
         {/* <MyOrders/> */}
-        <Paper className={classes.auctions} elevation={4}>
-          <Typography type="title" color="primary">
-              Lelang yang anda ikuti
-          </Typography>
-          <Auctions  auctions={auctions} removeAuction={removeAuction} />
-        </Paper>
+        {!auth.isAuthenticated().user.seller && (
+          <Paper className={classes.auctions} elevation={4}>
+            <Typography type="title" color="primary">
+                Lelang yang anda ikuti
+            </Typography>
+            <Auctions  auctions={auctions} removeAuction={removeAuction} />
+          </Paper>
+        )}
       </Paper>
     )
 }
