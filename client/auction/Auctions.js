@@ -39,10 +39,10 @@ export default function Auctions(props){
   const showTimeLeft = (date) => {
     let timeLeft = calculateTimeLeft(date)
     return !timeLeft.timeEnd && <span>
-      {timeLeft.days != 0 && `${timeLeft.days} d `} 
-      {timeLeft.hours != 0 && `${timeLeft.hours} h `} 
-      {timeLeft.minutes != 0 && `${timeLeft.minutes} m `} 
-      {timeLeft.seconds != 0 && `${timeLeft.seconds} s`} left
+      {timeLeft.days != 0 && `${timeLeft.days} hari `} 
+      {timeLeft.hours != 0 && `${timeLeft.hours} jam `} 
+      {timeLeft.minutes != 0 && `${timeLeft.minutes} menit `} 
+      {timeLeft.seconds != 0 && `${timeLeft.seconds} detik`} lagi
     </span>
   }
   const auctionState = (auction)=>{
@@ -50,7 +50,7 @@ export default function Auctions(props){
       <span>
           {currentDate < new Date(auction.bidStart) && `Lelang dimulai pada ${dateTimeFormat(auction.bidStart)}`}
           {currentDate > new Date(auction.bidStart) && currentDate < new Date(auction.bidEnd) && <>{`lelang Sedang Berjalan | ${auction.bids.length} tawaran |`} {showTimeLeft(new Date(auction.bidEnd))}</>}
-          {currentDate > new Date(auction.bidEnd) && `Auction Ended | ${auction.bids.length} bids `} 
+          {currentDate > new Date(auction.bidEnd) && `Lelang berakhir | ${auction.bids.length} tawaran `} 
           {currentDate > new Date(auction.bidStart) && auction.bids.length> 0 && ` | Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
       </span>
     )
