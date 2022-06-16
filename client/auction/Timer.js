@@ -1,6 +1,7 @@
 import React, {useState, useEffect}  from 'react'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
+import { dateTimeFormat } from '../util/number'
 
 const useStyles = makeStyles(theme => ({
     endTime: {
@@ -54,7 +55,7 @@ export default function Timer (props) {
                 {timeLeft.days != 0 && ` ${timeLeft.days} hari `} 
                 {timeLeft.hours != 0 && `${timeLeft.hours} jam `} 
                 {timeLeft.minutes != 0 && `${timeLeft.minutes} menit `} 
-                {timeLeft.seconds != 0 && `${timeLeft.seconds} detik`} <span className={classes.endTime}>{`(berakhir pada ${new Date(props.endTime).toLocaleString('id-ID')})`}</span></Typography> : 
+                {timeLeft.seconds != 0 && `${timeLeft.seconds} detik`} <span className={classes.endTime}>{`(berakhir pada ${dateTimeFormat(props.endTime)})`}</span></Typography> : 
             <Typography component="p" variant="h6" >Auction ended</Typography>}
         </div>
     )

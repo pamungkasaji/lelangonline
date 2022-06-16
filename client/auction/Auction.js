@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom'
 import auth from '../auth/auth-helper'
 import Timer from './Timer'
 import Bidding from './Bidding'
-import { rupiahFormat } from '../util/number.js'
+import { dateTimeFormat, rupiahFormat } from '../util/number.js'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -133,7 +133,7 @@ export default function Auction ({match}) {
                         { !auth.isAuthenticated() && <Typography>Silahkan <Link to='/signin'>login</Link> untuk membuat penawaran.</Typography> }
                         { auth.isAuthenticated() && <Bidding auction={auction} justEnded={justEnded} updateBids={updateBids}/> }
                       </>)
-                    : <Typography component="p" variant="h6">{`Lelang dimulai pada ${new Date(auction.bidStart).toLocaleTimeString('id-ID')}`}</Typography>}
+                    : <Typography component="p" variant="h6">{`Lelang dimulai pada ${dateTimeFormat(auction.bidStart)}`}</Typography>}
                   </Grid>
            
                 </Grid>

@@ -22,6 +22,7 @@ import stripeButton from './../assets/images/stripeButton.png'
 import MyOrders from './../order/MyOrders'
 import Auctions from './../auction/Auctions'
 import {listByBidder} from './../auction/api-auction.js'
+import { dateFormat } from '../util/number'
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -100,8 +101,6 @@ export default function Profile({ match }) {
 
   }, [match.params.userId])
 
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
   if (redirectToSignin) {
     return <Redirect to='/signin'/>
   }
@@ -141,8 +140,8 @@ export default function Profile({ match }) {
           </ListItem>
           <Divider/>
           <ListItem>
-            <ListItemText primary={"Bergabung Pada: " + (
-              new Date(user.created)).toLocaleDateString('id-ID', options)}/>
+            <ListItemText primary={"Bergabung Pada: " + 
+              dateFormat(user.created)}/>
           </ListItem>
         </List>
         {/* <MyOrders/> */}

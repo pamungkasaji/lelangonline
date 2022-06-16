@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import auth from '../auth/auth-helper'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
-import { rupiahFormat } from '../util/number'
+import { dateTimeFormat, rupiahFormat } from '../util/number'
 
 const io = require('socket.io-client')
 const socket = io()
@@ -93,7 +93,7 @@ export default function Bidding (props) {
                     {props.auction.bids.map((item, index) => {
                         return <Grid container spacing={4} key={index}>
                             <Grid item xs={3} sm={3}><Typography variant="body2">{rupiahFormat(item.bid)}</Typography></Grid>
-                            <Grid item xs={5} sm={5}><Typography variant="body2">{new Date(item.time).toLocaleString('id-ID')}</Typography></Grid>
+                            <Grid item xs={5} sm={5}><Typography variant="body2">{dateTimeFormat(item.time)}</Typography></Grid>
                             <Grid item xs={4} sm={4}><Typography variant="body2">{item.bidder.name}</Typography></Grid>
                         </Grid>
                     })}

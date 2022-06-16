@@ -14,7 +14,7 @@ import Divider from '@material-ui/core/Divider'
 import DeleteAuction from './DeleteAuction'
 import auth from '../auth/auth-helper'
 import {Link} from 'react-router-dom'
-import { rupiahFormat } from '../util/number'
+import { dateTimeFormat, rupiahFormat } from '../util/number'
 
 const calculateTimeLeft = (date) => {
   const difference = date - new Date()
@@ -48,7 +48,7 @@ export default function Auctions(props){
   const auctionState = (auction)=>{
     return (
       <span>
-          {currentDate < new Date(auction.bidStart) && `Lelang dimulai pada ${new Date(auction.bidStart).toLocaleString('id-ID')}`}
+          {currentDate < new Date(auction.bidStart) && `Lelang dimulai pada ${dateTimeFormat(auction.bidStart)}`}
           {currentDate > new Date(auction.bidStart) && currentDate < new Date(auction.bidEnd) && <>{`lelang Sedang Berjalan | ${auction.bids.length} tawaran |`} {showTimeLeft(new Date(auction.bidEnd))}</>}
           {currentDate > new Date(auction.bidEnd) && `Auction Ended | ${auction.bids.length} bids `} 
           {currentDate > new Date(auction.bidStart) && auction.bids.length> 0 && ` | Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
