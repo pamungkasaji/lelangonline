@@ -49,7 +49,7 @@ export default function Auctions(props){
     return (
       <span>
           {currentDate < new Date(auction.bidStart) && `Lelang dimulai pada ${dateTimeFormat(auction.bidStart)}`}
-          {currentDate > new Date(auction.bidStart) && currentDate < new Date(auction.bidEnd) && <>{`lelang Sedang Berjalan | ${auction.bids.length} tawaran |`} {showTimeLeft(new Date(auction.bidEnd))}</>}
+          {currentDate > new Date(auction.bidStart) && currentDate < new Date(auction.bidEnd) && <>{`Lelang Sedang Berjalan | ${auction.bids.length} tawaran |`} {showTimeLeft(new Date(auction.bidEnd))}</>}
           {currentDate > new Date(auction.bidEnd) && `Lelang selesai | ${auction.bids.length} tawaran `} 
           {currentDate > new Date(auction.bidStart) && auction.bids.length> 0 && ` | Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
       </span>

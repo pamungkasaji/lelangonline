@@ -65,7 +65,7 @@ export default function MyAuctions(){
     <div>
       <Paper className={classes.root} elevation={4}>
         <Typography type="title" className={classes.title}>
-          Lelang Anda
+          Daftar Lelang
           <span className={classes.addButton}>
             <Link to="/auction/new">
               <Button color="primary" variant="contained">
