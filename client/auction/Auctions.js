@@ -9,10 +9,12 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Edit from '@material-ui/icons/Edit'
 import ViewIcon from '@material-ui/icons/Visibility'
+import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider'
 import DeleteAuction from './DeleteAuction'
 import auth from '../auth/auth-helper'
 import {Link} from 'react-router-dom'
+import { rupiahFormat } from '../util/number'
 
 const calculateTimeLeft = (date) => {
   const difference = date - new Date()
@@ -49,7 +51,7 @@ export default function Auctions(props){
           {currentDate < new Date(auction.bidStart) && `Lelang dimulai pada ${new Date(auction.bidStart).toLocaleString('id-ID')}`}
           {currentDate > new Date(auction.bidStart) && currentDate < new Date(auction.bidEnd) && <>{`lelang Sedang Berjalan | ${auction.bids.length} tawaran |`} {showTimeLeft(new Date(auction.bidEnd))}</>}
           {currentDate > new Date(auction.bidEnd) && `Auction Ended | ${auction.bids.length} bids `} 
-          {currentDate > new Date(auction.bidStart) && auction.bids.length> 0 && ` | Tawaran Tertinggi: $ ${auction.bids[0].bid}`}
+          {currentDate > new Date(auction.bidStart) && auction.bids.length> 0 && ` | Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
       </span>
     )
   }
@@ -65,7 +67,7 @@ export default function Auctions(props){
                 <ListItemSecondaryAction>
                     <Link to={"/auction/" + auction._id}>
                       <IconButton aria-label="View" color="primary">
-                        <ViewIcon/>
+                        <SearchIcon/>
                       </IconButton>
                     </Link>
                 { auth.isAuthenticated().user && auth.isAuthenticated().user._id == auction.seller._id &&

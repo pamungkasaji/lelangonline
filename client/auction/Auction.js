@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom'
 import auth from '../auth/auth-helper'
 import Timer from './Timer'
 import Bidding from './Bidding'
+import { rupiahFormat } from '../util/number.js'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -126,7 +127,7 @@ export default function Auction ({match}) {
                         <Timer endTime={auction.bidEnd} update={update}/> 
                         { auction.bids.length > 0 &&  
                             <Typography component="p" variant="subtitle1" className={classes.lastBid}>
-                                {` Tawaran Tertinggi: Rp. ${auction.bids[0].bid}`}
+                                {` Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
                             </Typography>
                         }
                         { !auth.isAuthenticated() && <Typography>Silahkan <Link to='/signin'>login</Link> untuk membuat penawaran.</Typography> }

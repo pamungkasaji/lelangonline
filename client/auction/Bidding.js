@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import auth from '../auth/auth-helper'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
+import { rupiahFormat } from '../util/number'
 
 const io = require('socket.io-client')
 const socket = io()
@@ -72,12 +73,12 @@ export default function Bidding (props) {
                 <TextField id="bid" label="Tawaran Anda (Rp.)"  
                         value={bid} onChange={handleChange} 
                         type="number" margin="normal"
-                        helperText={`Masukkan Rp.${Number(minBid)+1} atau lebih`}
+                        helperText={`Masukkan ${rupiahFormat(Number(minBid)+1)} atau lebih`}
                         className={classes.marginInput}/><br/>
                 <Button variant="contained" className={classes.marginBtn} color="secondary" disabled={bid < (minBid + 1)} onClick={placeBid} >Ajukan Tawaran</Button><br/>
             </div>}
             <div className={classes.bidHistory}>
-                <Typography variant="h6">Semau Tawaran</Typography><br/>
+                <Typography variant="h6">Semua Tawaran</Typography><br/>
                 <Grid container spacing={4}>
                     <Grid item xs={3} sm={3}>
                         <Typography variant="subtitle1" color="primary">Jumlah Tawaran</Typography>
@@ -91,7 +92,7 @@ export default function Bidding (props) {
                 </Grid>    
                     {props.auction.bids.map((item, index) => {
                         return <Grid container spacing={4} key={index}>
-                            <Grid item xs={3} sm={3}><Typography variant="body2">${item.bid}</Typography></Grid>
+                            <Grid item xs={3} sm={3}><Typography variant="body2">{rupiahFormat(item.bid)}</Typography></Grid>
                             <Grid item xs={5} sm={5}><Typography variant="body2">{new Date(item.time).toLocaleString('id-ID')}</Typography></Grid>
                             <Grid item xs={4} sm={4}><Typography variant="body2">{item.bidder.name}</Typography></Grid>
                         </Grid>
