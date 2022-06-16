@@ -34,28 +34,28 @@ const MainRouter = () => {
         {/* <Route exact path="/" component={Home}/> */}
         <Route exact path="/" component={OpenAuctions}/>
 
-        <Route path="/users" component={Users}/>
+        <PrivateRoute path="/users" component={Users}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/signupseller" component={SignupSeller}/>
         <Route path="/signin" component={Signin}/>
         <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
         <Route path="/user/:userId" component={Profile}/>
 
-        <Route path="/cart" component={Cart}/>
+        {/* <Route path="/cart" component={Cart}/>
         <Route path="/product/:productId" component={Product}/>
         <Route path="/shops/all" component={Shops}/>
-        <Route path="/shops/:shopId" component={Shop}/>
+        <Route path="/shops/:shopId" component={Shop}/> */}
 
-        <Route path="/order/:orderId" component={Order}/>
+        {/* <Route path="/order/:orderId" component={Order}/>
         <PrivateRoute path="/seller/orders/:shop/:shopId" component={ShopOrders}/>
 
         <PrivateRoute path="/seller/shops" component={MyShops}/>
         <PrivateRoute path="/seller/shop/new" component={NewShop}/>
         <PrivateRoute path="/seller/shop/edit/:shopId" component={EditShop}/>
         <PrivateRoute path="/seller/:shopId/products/new" component={NewProduct}/>
-        <PrivateRoute path="/seller/:shopId/:productId/edit" component={EditProduct}/>
+        <PrivateRoute path="/seller/:shopId/:productId/edit" component={EditProduct}/> */}
 
-        <Route path="/seller/stripe/connect" component={StripeConnect}/>
+        {/* <Route path="/seller/stripe/connect" component={StripeConnect}/> */}
         <PrivateRoute path="/myauctions" component={MyAuctions}/>
         <PrivateRoute path="/auction/new" component={NewAuction}/>
         <PrivateRoute path="/auction/edit/:auctionId" component={EditAuction}/>

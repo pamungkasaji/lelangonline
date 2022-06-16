@@ -16,8 +16,8 @@ import {list} from './api-user.js'
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
-    padding: theme.spacing(1),
-    margin: theme.spacing(5)
+    padding: theme.spacing(5),
+    margin: theme.spacing(15),
   }),
   title: {
     margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
@@ -49,7 +49,7 @@ export default function Users() {
   return (
     <Paper className={classes.root} elevation={4}>
       <Typography variant="h6" className={classes.title}>
-        All Users
+        Daftar Pengguna
       </Typography>
       <List dense>
        {users.map((item, i) => {
