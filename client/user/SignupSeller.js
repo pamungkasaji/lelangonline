@@ -15,6 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import {Link} from 'react-router-dom'
+import { checkNumber } from '../util/number.js'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -48,12 +49,11 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const isNumber = (str) => /^\d+$/.test(str);
-
 export default function SignupSeller() {
   const classes = useStyles()
   const [values, setValues] = useState({
     name: '',
+    nohp: '',
     nik: '',
     address: '',
     image: '',
@@ -65,13 +65,20 @@ export default function SignupSeller() {
   })
 
   const handleChange = name => event => {
-    console.log()
     const value = name === 'image'
       ? event.target.files[0]
       : event.target.value
 
-    // nik hanya boleh diisi number
-    if (name !== 'nik' || (name === 'nik' && isNumber(value))) {
+    // nik dan nohp hanya boleh diisi number
+    // if ((name !== 'nik' && name !== 'nohp') || ((name === 'nik' || name === 'nohp') && isNumber(value))) {
+    //   setValues({ ...values, [name]: value })
+    // }
+
+    if (name === 'nik' || name === 'nohp') {
+      if (checkNumber(value)) {
+        setValues({ ...values, [name]: value })
+      }
+    } else {
       setValues({ ...values, [name]: value })
     }
   }
@@ -79,6 +86,7 @@ export default function SignupSeller() {
   const clickSubmit = () => {
     let sellerData = new FormData()
     values.name && sellerData.append('name', values.name)
+    values.nohp && sellerData.append('nohp', values.nohp)
     values.nik && sellerData.append('nik', values.nik)
     values.address && sellerData.append('address', values.address)
     values.image && sellerData.append('image', values.image)
@@ -117,6 +125,7 @@ export default function SignupSeller() {
             Registrasi Penjual
           </Typography>
           <TextField id="name" label="Nama" className={classes.textField} value={values.name} onChange={handleChange('name')} margin="normal"/><br/>
+          <TextField id="nohp" label="No HP"  className={classes.textField} value={values.nohp} onChange={handleChange('nohp')} margin="normal"/><br/>
           <TextField
             id="multiline-flexible"
             label="Alamat"

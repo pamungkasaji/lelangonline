@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  nohp: {
+    type: String,
+    trim: true,
+    required: 'No HP harus diisi'
+  },
   nik: {
     type: String,
     trim: true,

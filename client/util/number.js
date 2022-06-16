@@ -13,3 +13,7 @@ export const dateTimeFormat = (date) => {
 export const dateFormat = (date) => {
   return moment(date).format("Do MMMM YYYY")
 }
+
+export const checkNumber = (str) => {
+  return /^\d+$/.test(str)
+}

@@ -116,7 +116,7 @@ export default function Profile({ match }) {
                 <Person/>
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={user.name} secondary={user.username}/> {
+            <ListItemText primary={'Nama : ' + user.name} secondary={'Username : ' + user.username}/> {
              auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
              (<ListItemSecondaryAction>
                {/* {user.seller &&
@@ -140,7 +140,11 @@ export default function Profile({ match }) {
           </ListItem>
           <Divider/>
           <ListItem>
-            <ListItemText primary={"Bergabung Pada: " + 
+            <ListItemText primary={"No HP : " + 
+              user.nohp}/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={"Bergabung Pada : " + 
               dateFormat(user.created)}/>
           </ListItem>
         </List>

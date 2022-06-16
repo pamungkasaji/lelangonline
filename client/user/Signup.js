@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import {Link} from 'react-router-dom'
+import { checkNumber } from '../util/number.js'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -45,6 +46,7 @@ export default function Signup() {
   const classes = useStyles()
   const [values, setValues] = useState({
     name: '',
+    nohp: '',
     password: '',
     username: '',
     open: false,
@@ -52,12 +54,23 @@ export default function Signup() {
   })
 
   const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value })
+    const value = event.target.value
+
+    if (name === 'nohp') {
+      if (checkNumber(value)) {
+        setValues({ ...values, [name]: value })
+      }
+    } else {
+      setValues({ ...values, [name]: value })
+    }
+
+    // setValues({ ...values, [name]: value })
   }
 
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
+      nohp: values.nohp || undefined,
       username: values.username || undefined,
       password: values.password || undefined
     }
@@ -76,6 +89,7 @@ export default function Signup() {
             Registrasi Pembeli
           </Typography>
           <TextField id="name" label="Nama" className={classes.textField} value={values.name} onChange={handleChange('name')} margin="normal"/><br/>
+          <TextField id="nohp" type="No HP" label="No HP" className={classes.textField} value={values.nohp} onChange={handleChange('nohp')} margin="normal"/><br/>
           <TextField id="username" type="Username" label="Username" className={classes.textField} value={values.username} onChange={handleChange('username')} margin="normal"/><br/>
           <TextField id="password" type="Password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           <br/> {
