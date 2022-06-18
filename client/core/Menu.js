@@ -9,7 +9,7 @@ import auth from './../auth/auth-helper'
 import {Link, withRouter} from 'react-router-dom'
 import CartIcon from '@material-ui/icons/ShoppingCart'
 import Badge from '@material-ui/core/Badge'
-import cart from './../cart/cart-helper'
+// import cart from './../cart/cart-helper'
 import MUIMenu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';

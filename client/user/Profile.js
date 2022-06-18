@@ -19,7 +19,6 @@ import {read} from './api-user.js'
 import {Redirect, Link} from 'react-router-dom'
 import config from './../../config/config'
 import stripeButton from './../assets/images/stripeButton.png'
-import MyOrders from './../order/MyOrders'
 import Auctions from './../auction/Auctions'
 import {listByBidder} from './../auction/api-auction.js'
 import { dateFormat } from '../util/number'
@@ -148,7 +147,6 @@ export default function Profile({ match }) {
               dateFormat(user.created)}/>
           </ListItem>
         </List>
-        {/* <MyOrders/> */}
         {!auth.isAuthenticated().user.seller && (
           <Paper className={classes.auctions} elevation={4}>
             <Typography type="title" color="primary">
