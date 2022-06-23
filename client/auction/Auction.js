@@ -126,9 +126,16 @@ export default function Auction ({match}) {
                     ? (<>
                         <Timer endTime={auction.bidEnd} update={update}/> 
                         { auction.bids.length > 0 &&  
+                        <>
                             <Typography component="p" variant="subtitle1" className={classes.lastBid}>
                                 {` Tawaran Tertinggi: ${rupiahFormat(auction.bids[0].bid)}`}
                             </Typography>
+                            {currentDate > new Date(auction.bidEnd) && (
+                              <Typography component="p" variant="subtitle1" className={classes.lastBid}>
+                                {` No HP : ${auction.bids[0] && auction.bids[0].bidder ? `${auction.bids[0].bidder.nohp} (${auction.bids[0].bidder.name})` : ``}`}
+                            </Typography>
+                            )}
+                            </>
                         }
                         { !auth.isAuthenticated() && <Typography>Silahkan <Link to='/signin'>login</Link> untuk membuat penawaran.</Typography> }
                         { auth.isAuthenticated() && <Bidding auction={auction} justEnded={justEnded} updateBids={updateBids}/> }

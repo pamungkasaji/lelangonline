@@ -10,8 +10,11 @@ import stripe from 'stripe'
 const myStripe = stripe(config.stripe_test_secret_key)
 
 const create = async (req, res) => {
-  const user = new User(req.body)
+  let user = new User(req.body)
   try {
+    user.seller = false
+    user.admin = false
+
     await user.save()
     return res.status(200).json({
       message: "Successfully signed up!"
@@ -32,9 +35,12 @@ const createSeller = async (req, res) => {
         message: "Foto NIK tidak dapat di-upload"
       })
     }
+    
     let user = new User(fields)
-    user.seller= true
-    user.verified= false
+    user.seller = true
+    user.verified = false
+    user.admin = false
+
     if(files.image){
       user.image.data = fs.readFileSync(files.image.path)
       user.image.contentType = files.image.type

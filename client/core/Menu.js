@@ -81,8 +81,8 @@ const Menu = withRouter(({history}) => (
         </span>)
       }
       {
-        auth.isAuthenticated() && (<span>
-          {auth.isAuthenticated().user.seller && (<>
+        auth.isAuthenticated() && auth.isAuthenticated().user && (<span>
+          {auth.isAuthenticated().user.seller === true && (<>
             {/* <Link to="/seller/shops"><Button style={isPartActive(history, "/seller/")}>My Shops</Button></Link> */}
             <Link to="/myauctions"><Button style={isPartActive(history, "/myauctions")}>Lelang Saya</Button></Link>
             </>
