@@ -11,7 +11,7 @@ const myStripe = stripe(config.stripe_test_secret_key)
 
 const create = async (req, res) => {
 
-  let foundUser = await User.find({username: req.body.username})
+  const foundUser = await User.find({username: req.body.username})
   if (foundUser)
     return res.status('400').json({
       error: "Username sudah digunakan"
@@ -35,7 +35,7 @@ const create = async (req, res) => {
 
 const createSeller = async (req, res) => {
 
-  let foundUser = await User.find({username: req.body.username})
+  const foundUser = await User.find({username: req.body.username})
   if (foundUser)
     return res.status('400').json({
       error: "Username sudah digunakan"
