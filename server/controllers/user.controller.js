@@ -12,10 +12,12 @@ const myStripe = stripe(config.stripe_test_secret_key)
 const create = async (req, res) => {
 
   const foundUser = await User.find({username: req.body.username})
-  if (foundUser)
+
+  if (foundUser && foundUser.length > 0) {
     return res.status('400').json({
       error: "Username sudah digunakan"
     })
+  }
 
   let user = new User(req.body)
   try {
@@ -36,10 +38,12 @@ const create = async (req, res) => {
 const createSeller = async (req, res) => {
 
   const foundUser = await User.find({username: req.body.username})
-  if (foundUser)
+  
+  if (foundUser && foundUser.length > 0) {
     return res.status('400').json({
       error: "Username sudah digunakan"
     })
+  }
 
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
