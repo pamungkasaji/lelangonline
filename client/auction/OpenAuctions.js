@@ -65,21 +65,21 @@ export default function OpenAuctions(){
   const getOpenAuctions = () => {
     const abortController = new AbortController()
     const signal = abortController.signal
-    listOpen({ itemName: values.searchName }, signal).then((data) => {
+    const searchParams = {
+      itemName: values.searchName
+    }
+    listOpen(searchParams, signal).then((data) => {
       if (data.error) {
         // setRedirectToSignin(true)
         setValues({ ...values, error: 'Gagal memperoleh daftar lelang'})
       } else {
-        if (data) {
-          if (data.length === 0) {
-            setValues({ ...values, error: 'Lelang tidak ditemukan'})
-          } else {
-            setValues({ ...values, error: ''})
-          }
-
-          setAuctions(data)
-
+        if (data.length === 0) {
+          setValues({ ...values, error: 'Lelang tidak ditemukan'})
+        } else {
+          setValues({ ...values, error: ''})
         }
+
+        setAuctions(data)
       }
     })
     return function cleanup(){
