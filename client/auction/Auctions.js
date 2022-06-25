@@ -63,13 +63,17 @@ export default function Auctions(props){
                 <ListItemAvatar>
                   <Avatar variant='square' src={'/api/auctions/image/'+auction._id+"?" + new Date().getTime()}/>
                 </ListItemAvatar>
-                <ListItemText primary={auction.itemName} secondary={auctionState(auction)}/>
+                <Link to={"/auction/" + auction._id}>
+                  <ListItemText primary={auction.itemName} secondary={auctionState(auction)}/>
+                </Link>
                 <ListItemSecondaryAction>
-                    <Link to={"/auction/" + auction._id}>
+
+                    {/* <Link to={"/auction/" + auction._id}>
                       <IconButton aria-label="View" color="primary">
                         <SearchIcon/>
                       </IconButton>
-                    </Link>
+                    </Link> */}
+
                 { auth.isAuthenticated().user && auth.isAuthenticated().user._id == auction.seller._id &&
                   <>
                     {/* <Link to={"/auction/edit/" + auction._id}>
