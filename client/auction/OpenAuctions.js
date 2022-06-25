@@ -2,8 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import SearchIcon from '@material-ui/icons/Search'
 import {listOpen} from './api-auction.js'
 import Auctions from './Auctions'
+import { Icon } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -22,26 +26,66 @@ const useStyles = makeStyles(theme => ({
   },
   leftIcon: {
     marginRight: "8px"
+  },
+  searchField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 300,
+    marginBottom: '20px'
+  },
+  searchButton: {
+    minWidth: '20px',
+    height: '30px',
+    padding: '0 8px',
+    marginBottom: '10px'
+  },
+  error: {
+    verticalAlign: 'middle'
   }
 }))
 export default function OpenAuctions(){
   const classes = useStyles()
   const [auctions, setAuctions] = useState([])
 
+  const [values, setValues] = useState({
+    searchName: '',
+    error: ''
+  })
+
   useEffect(() => {
+    getOpenAuctions()
+  }, [])
+
+  const handleChange = name => event => {
+    setValues({
+      ...values, [name]: event.target.value,
+    })
+  }
+
+  const getOpenAuctions = () => {
     const abortController = new AbortController()
     const signal = abortController.signal
-    listOpen(signal).then((data) => {
+    listOpen({ itemName: values.searchName }, signal).then((data) => {
       if (data.error) {
-        setRedirectToSignin(true)
+        // setRedirectToSignin(true)
+        setValues({ ...values, error: 'Gagal memperoleh daftar lelang'})
       } else {
-        setAuctions(data)
+        if (data) {
+          if (data.length === 0) {
+            setValues({ ...values, error: 'Lelang tidak ditemukan'})
+          } else {
+            setValues({ ...values, error: ''})
+          }
+
+          setAuctions(data)
+
+        }
       }
     })
     return function cleanup(){
       abortController.abort()
     }
-  }, [])
+  }
 
   const removeAuction = (auction) => {
     const updatedAuctions = [...auctions]
@@ -55,7 +99,26 @@ export default function OpenAuctions(){
         <Typography type="title" className={classes.title}>
           Lelang yang Berlangsung
         </Typography>
+        <TextField
+            value={values.searchName}
+            id="searchName"
+            label="Cari lelang"
+            type="searchName"
+            // onKeyDown={enterKey}
+            onChange={handleChange("searchName")}
+            className={classes.searchField}
+            margin="normal"
+          />
+          <Button variant="contained" color={'primary'} className={classes.searchButton} onClick={getOpenAuctions}>
+            <SearchIcon/>
+          </Button>
         <Auctions auctions={auctions} removeAuction={removeAuction}/>
+
+        <br/> {
+            values.error && (<Typography component="p" color="error">
+              <Icon color="error" className={classes.error}>error</Icon>
+              {values.error}</Typography>)
+          }
       </Paper>
     </div>)
 }

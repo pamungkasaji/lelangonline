@@ -1,3 +1,5 @@
+import queryString from 'query-string'
+
 const create = async (params, credentials, auction) => {
   try {
     let response = await fetch('/api/auctions/by/'+ params.userId, {
@@ -14,9 +16,11 @@ const create = async (params, credentials, auction) => {
     }
 }
 
-const listOpen = async (signal) => {
+const listOpen = async (params, signal) => {
+  const query = queryString.stringify(params)
+
   try {
-    let response = await fetch('/api/auctions', {
+    let response = await fetch('/api/auctions?'+query, {
       method: 'GET',
       signal: signal
     })

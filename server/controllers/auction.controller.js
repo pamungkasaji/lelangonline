@@ -103,8 +103,17 @@ const remove = async (req, res) => {
 }
 
 const listOpen = async (req, res) => {
+
+  let query = {}
+
+  query.bidEnd = { $gt: new Date() }
+
+  if(req.query.itemName) {
+    query.itemName = {'$regex': req.query.itemName, '$options': "i"}
+  }
+
   try {
-    let auctions = await Auction.find({ 'bidEnd': { $gt: new Date() }}).sort('bidStart').populate('seller', '_id name').populate('bids.bidder', '_id name')
+    let auctions = await Auction.find(query).sort('bidStart').populate('seller', '_id name').populate('bids.bidder', '_id name')
     res.json(auctions)
   } catch (err){
     return res.status(400).json({
