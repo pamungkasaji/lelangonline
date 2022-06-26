@@ -1,7 +1,5 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
-// import Home from './core/Home'
-import Users from './user/Users'
 import Signup from './user/Signup'
 import Signin from './auth/Signin'
 import EditProfile from './user/EditProfile'
@@ -22,7 +20,6 @@ const MainRouter = () => {
   return (<div>
       <Menu/>
       <Switch>
-        {/* <Route exact path="/" component={Home}/> */}
         <Route exact path="/" component={OpenAuctions}/>
 
         <Route path="/signup" component={Signup}/>
@@ -37,7 +34,6 @@ const MainRouter = () => {
         <Route path="/auction/:auctionId" component={Auction}/>
         <Route path="/auctions/all" component={OpenAuctions}/>
 
-        {/* <Route path="/users" component={Users}/> */}
         <AdminRoute path="/verifyseller" component={VerifySeller}/>
         <Route path="/seller/:userId" component={SellerDetail}/>
       </Switch>

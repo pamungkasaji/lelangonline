@@ -51,9 +51,7 @@ const UserSchema = new mongoose.Schema({
   address: {
     type: String,
     trim: true
-  },
-  stripe_seller: {},
-  stripe_customer: {}
+  }
 })
 
 UserSchema

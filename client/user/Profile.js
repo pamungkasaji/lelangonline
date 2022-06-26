@@ -18,7 +18,6 @@ import auth from './../auth/auth-helper'
 import {read} from './api-user.js'
 import {Redirect, Link} from 'react-router-dom'
 import config from './../../config/config'
-import stripeButton from './../assets/images/stripeButton.png'
 import Auctions from './../auction/Auctions'
 import {listByBidder} from './../auction/api-auction.js'
 import { dateFormat } from '../util/number'
@@ -33,13 +32,6 @@ const useStyles = makeStyles(theme => ({
   title: {
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(2)}px`,
     color: theme.palette.protectedTitle
-  },
-  stripe_connect: {
-    marginRight: '10px',
-  },
-  stripe_connected: {
-    verticalAlign: 'super',
-    marginRight: '10px'
   },
   auctions: {
     maxWidth: 600,
@@ -118,16 +110,6 @@ export default function Profile({ match }) {
             <ListItemText primary={'Nama : ' + user.name} secondary={'Username : ' + user.username}/> {
              auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
              (<ListItemSecondaryAction>
-               {/* {user.seller &&
-                 (user.stripe_seller
-                   ? (<Button variant="contained" disabled className={classes.stripe_connected}>
-                       Stripe connected
-                      </Button>)
-                   : (<a href={"https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+config.stripe_connect_test_client_id+"&scope=read_write"} className={classes.stripe_connect}>
-                       <img src={stripeButton}/>
-                      </a>)
-                  )
-                } */}
                {/* <Link to={"/user/edit/" + user._id}>
                  <IconButton aria-label="Edit" color="primary">
                    <Edit/>
