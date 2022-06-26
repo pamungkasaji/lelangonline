@@ -14,6 +14,9 @@ import NewAuction from './auction/NewAuction'
 import EditAuction from './auction/EditAuction'
 import Auction from './auction/Auction'
 import SignupSeller from './user/SignupSeller'
+import VerifySeller from './admin/VerifySeller'
+import AdminRoute from './auth/AdminRoute'
+import SellerDetail from './admin/SellerDetail'
 
 const MainRouter = () => {
   return (<div>
@@ -22,7 +25,6 @@ const MainRouter = () => {
         {/* <Route exact path="/" component={Home}/> */}
         <Route exact path="/" component={OpenAuctions}/>
 
-        <Route path="/users" component={Users}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/signupseller" component={SignupSeller}/>
         <Route path="/signin" component={Signin}/>
@@ -34,6 +36,10 @@ const MainRouter = () => {
         <PrivateRoute path="/auction/edit/:auctionId" component={EditAuction}/>
         <Route path="/auction/:auctionId" component={Auction}/>
         <Route path="/auctions/all" component={OpenAuctions}/>
+
+        {/* <Route path="/users" component={Users}/> */}
+        <AdminRoute path="/verifyseller" component={VerifySeller}/>
+        <Route path="/seller/:userId" component={SellerDetail}/>
       </Switch>
     </div>)
 }

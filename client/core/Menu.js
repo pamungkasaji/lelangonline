@@ -87,9 +87,17 @@ const Menu = withRouter(({history}) => (
             <Link to="/myauctions"><Button style={isPartActive(history, "/myauctions")}>Lelang Saya</Button></Link>
             </>
           )}
-          <Link to={"/user/" + auth.isAuthenticated().user._id}>
-            <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profil</Button>
-          </Link>
+          {auth.isAuthenticated().user.admin === true && (<>
+            <Link to="/verifyseller"><Button style={isPartActive(history, "/verifyseller")}>Verifikasi Penjual</Button></Link>
+            </>
+          )}
+          {auth.isAuthenticated().user.admin !== true && (<>
+            <Link to={"/user/" + auth.isAuthenticated().user._id}>
+              <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profil</Button>
+            </Link>
+            </>
+          )}
+
           <Button color="inherit" onClick={() => {
               auth.clearJWT(() => history.push('/'))
             }}>Logout</Button>

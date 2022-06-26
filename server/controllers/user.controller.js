@@ -110,6 +110,40 @@ const list = async (req, res) => {
   }
 }
 
+const listNotVerifiedSeller = async (req, res) => {
+  try {
+
+    let users = await User.find({ seller: true, verified: false }).select('name username updated created')
+
+    res.json(users)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const readSeller = (req, res) => {
+  req.profile.hashed_password = undefined
+  req.profile.salt = undefined
+  return res.json(req.profile)
+}
+
+const acceptSeller = async (req, res) => {
+  try {
+    let user = req.profile
+    user.verified = true
+    await user.save()
+    user.hashed_password = undefined
+    user.salt = undefined
+    res.json(user)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 const update = async (req, res) => {
   try {
     let user = req.profile
@@ -231,6 +265,9 @@ export default {
   userByID,
   read,
   list,
+  listNotVerifiedSeller,
+  readSeller,
+  acceptSeller,
   remove,
   update,
   isSeller,

@@ -9,10 +9,17 @@ const signin = async (req, res) => {
         "username": req.body.username
       })
 
-      if (!user)
+      if (!user) {
         return res.status('401').json({
           error: "Pengguna tidak ditemukan"
         })
+      }
+
+      if (user.seller === true && user.verified === false) {
+        return res.status('401').json({
+          error: "Silahkan tunggu verifikasi admin"
+        })
+      }
 
       if (!user.authenticate(req.body.password)) {
         return res.status('401').send({
@@ -30,7 +37,7 @@ const signin = async (req, res) => {
 
       return res.json({
         token,
-        user: {_id: user._id, name: user.name, username: user.username, seller: user.seller}
+        user: {_id: user._id, name: user.name, username: user.username, seller: user.seller, admin: user.admin}
       })
   } catch (err) {
     return res.status('401').json({
