@@ -5,6 +5,7 @@ import fs from 'fs'
 import errorHandler from './../helpers/dbErrorHandler'
 import request from 'request'
 import config from './../../config/config'
+import defaultImage from './../../client/assets/images/default.png'
 import stripe from 'stripe'
 
 const myStripe = stripe(config.stripe_test_secret_key)
@@ -56,7 +57,7 @@ const createSeller = async (req, res) => {
     
     let user = new User(fields)
     user.seller = true
-    user.verified = false
+    user.verified = null
     user.admin = false
 
     if(files.image){
@@ -113,7 +114,7 @@ const list = async (req, res) => {
 const listNotVerifiedSeller = async (req, res) => {
   try {
 
-    let users = await User.find({ seller: true, verified: false }).select('name username updated created')
+    let users = await User.find({ seller: true, verified: null }).select('name username updated created')
 
     res.json(users)
   } catch (err) {
@@ -129,10 +130,36 @@ const readSeller = (req, res) => {
   return res.json(req.profile)
 }
 
+const ktpImage = (req, res) => {
+  if(req.profile && req.profile.image && req.profile.image.data){
+    res.set("Content-Type", req.profile.image.contentType)
+    return res.send(req.profile.image.data)
+  }
+}
+
+const defaultKtpImage = (req, res) => {
+  return res.sendFile(process.cwd()+defaultImage)
+}
+
 const acceptSeller = async (req, res) => {
   try {
     let user = req.profile
     user.verified = true
+    await user.save()
+    user.hashed_password = undefined
+    user.salt = undefined
+    res.json(user)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const declineSeller = async (req, res) => {
+  try {
+    let user = req.profile
+    user.verified = false
     await user.save()
     user.hashed_password = undefined
     user.salt = undefined
@@ -267,7 +294,10 @@ export default {
   list,
   listNotVerifiedSeller,
   readSeller,
+  ktpImage,
+  defaultKtpImage,
   acceptSeller,
+  declineSeller,
   remove,
   update,
   isSeller,

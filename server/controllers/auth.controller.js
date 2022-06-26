@@ -15,10 +15,16 @@ const signin = async (req, res) => {
         })
       }
 
-      if (user.seller === true && user.verified === false) {
-        return res.status('401').json({
-          error: "Silahkan tunggu verifikasi admin"
-        })
+      if (user.seller === true) {
+        if (user.verified === null) {
+          return res.status('401').json({
+            error: "Silahkan tunggu verifikasi admin"
+          })
+        } else if (user.verified === false) {
+          return res.status('401').json({
+            error: "Registrasi anda ditolak admin"
+          })
+        }
       }
 
       if (!user.authenticate(req.body.password)) {

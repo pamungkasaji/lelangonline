@@ -12,8 +12,10 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Edit from '@material-ui/icons/Edit'
 import Person from '@material-ui/icons/Person'
+import CardMedia from '@material-ui/core/CardMedia'
 import Divider from '@material-ui/core/Divider'
 import AcceptSeller from './AcceptSeller'
+import DeclineSeller from './DeclineSeller'
 import auth from './../auth/auth-helper'
 import {readSeller} from './api-admin.js'
 import {Redirect, Link} from 'react-router-dom'
@@ -38,6 +40,11 @@ const useStyles = makeStyles(theme => ({
     margin: '24px',
     padding: theme.spacing(3),
     backgroundColor: '#3f3f3f0d'
+  },
+  media: {
+    height: 300,
+    display: 'inline-block',
+    width: '100%',
   }
 }))
 
@@ -92,6 +99,10 @@ export default function SellerDetail({ match }) {
 
   }, [match.params.userId])
 
+  const imageUrl = user._id
+    ? `/api/seller_ktp/image/${user._id}?${new Date().getTime()}`
+    : '/api/seller_ktp/defaultphoto'
+
   if (redirectToSignin) {
     return <Redirect to='/signin'/>
   }
@@ -109,7 +120,10 @@ export default function SellerDetail({ match }) {
                    <Edit/>
                  </IconButton>
                </Link> */}
-               <AcceptSeller userId={user._id}/>
+
+              <AcceptSeller userId={user._id}/>
+              <DeclineSeller userId={user._id}/>
+              
              </ListItemSecondaryAction>
           </ListItem>
           <Divider/>
@@ -122,6 +136,13 @@ export default function SellerDetail({ match }) {
               dateFormat(user.created)}/>
           </ListItem>
         </List>
+
+        <CardMedia
+          className={classes.media}
+          image={imageUrl}
+          title={user.name}
+        />
+
         {/* {!auth.isAuthenticated().user.seller && (
           <Paper className={classes.auctions} elevation={4}>
             <Typography type="title" color="primary">

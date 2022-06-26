@@ -48,8 +48,25 @@ const acceptSeller = async (params, credentials) => {
   }
 }
 
+const declineSeller = async (params, credentials) => {
+  try {
+    let response = await fetch('/api/decline_seller/' + params.userId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 export { 
     listVerifySeller,
     readSeller,
-    acceptSeller
+    acceptSeller,
+    declineSeller
 }
