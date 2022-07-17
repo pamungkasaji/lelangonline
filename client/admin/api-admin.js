@@ -15,7 +15,7 @@ const listVerifySeller = async (credentials, signal) => {
   }
 }
 
-const readSeller = async (params, credentials, signal) => {
+const getSeller = async (params, credentials, signal) => {
   try {
     let response = await fetch('/api/detail_seller/' + params.userId, {
       method: 'GET',
@@ -66,7 +66,7 @@ const declineSeller = async (params, credentials) => {
 
 export { 
     listVerifySeller,
-    readSeller,
+    getSeller,
     acceptSeller,
     declineSeller
 }

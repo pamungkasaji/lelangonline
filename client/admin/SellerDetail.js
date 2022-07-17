@@ -17,7 +17,7 @@ import Divider from '@material-ui/core/Divider'
 import AcceptSeller from './AcceptSeller'
 import DeclineSeller from './DeclineSeller'
 import auth from './../auth/auth-helper'
-import {readSeller} from './api-admin.js'
+import {getSeller} from './api-admin.js'
 import {Redirect, Link} from 'react-router-dom'
 import config from './../../config/config'
 import Auctions from './../auction/Auctions'
@@ -57,7 +57,7 @@ export default function SellerDetail({ match }) {
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
-    readSeller({
+    getSeller({
       userId: match.params.userId
     }, {t: jwt.token}, signal).then((data) => {
       if (data && data.error) {
