@@ -54,32 +54,6 @@ export default function SellerDetail({ match }) {
   const [redirectToSignin, setRedirectToSignin] = useState(false)
   const jwt = auth.isAuthenticated()
 
-  const [auctions, setAuctions] = useState([])
-
-  // useEffect(() => {
-  //   const abortController = new AbortController()
-  //   const signal = abortController.signal
-  //   listByBidder({
-  //     userId: match.params.userId
-  //   }, {t: jwt.token}, signal).then((data) => {
-  //     if (data.error) {
-  //       setRedirectToSignin(true)
-  //     } else {
-  //       setAuctions(data)
-  //     }
-  //   })
-  //   return function cleanup(){
-  //     abortController.abort()
-  //   }
-  // }, [])
-
-  const removeAuction = (auction) => {
-    const updatedAuctions = [...auctions]
-    const index = updatedAuctions.indexOf(auction)
-    updatedAuctions.splice(index, 1)
-    setAuctions(updatedAuctions)
-  }
-
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal

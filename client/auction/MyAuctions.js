@@ -5,7 +5,7 @@ import Icon from '@material-ui/core/Icon'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import auth from '../auth/auth-helper'
-import {listBySeller} from './api-auction.js'
+import {sellerAuctions} from './api-auction.js'
 import {Redirect, Link} from 'react-router-dom'
 import Auctions from './Auctions'
 
@@ -37,7 +37,7 @@ export default function MyAuctions(){
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
-    listBySeller({
+    sellerAuctions({
       userId: jwt.user._id
     }, {t: jwt.token}, signal).then((data) => {
       if (data.error) {

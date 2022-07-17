@@ -30,7 +30,7 @@ const listOpen = async (params, signal) => {
   }
 }
 
-const listBySeller = async (params, credentials, signal) => {
+const sellerAuctions = async (params, credentials, signal) => {
   try {
     let response = await fetch('/api/auctions/by/'+params.userId, {
       method: 'GET',
@@ -109,7 +109,7 @@ const remove = async (params, credentials) => {
 export {
   create,
   listOpen,
-  listBySeller,
+  sellerAuctions,
   listByBidder,
   read,
   update,

@@ -164,9 +164,9 @@ export default function SignupSeller() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Link to="/signin">
+          <Link to="/">
             <Button color="primary" autoFocus="autoFocus" variant="contained">
-              Login
+              OK
             </Button>
           </Link>
         </DialogActions>
